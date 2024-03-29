@@ -2,9 +2,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: app-config
-  namespace: group-1-dev
+  namespace: group-3-dev
 data:
-  db.url: "jdbc:postgresql://ec2-13-229-211-253.ap-southeast-1.compute.amazonaws.com:5432/dev-group-1"
+  db.url: "jdbc:postgresql://ec2-13-229-211-253.ap-southeast-1.compute.amazonaws.com:5432/dev-group-3"
   db.username: "postgres"
   db.password: "YGSQOnBlYd+6"
   enabled.feature.promotion.list.api: "true"
