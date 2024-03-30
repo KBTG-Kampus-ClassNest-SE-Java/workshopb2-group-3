@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.kampus.kbazaar.security.JwtAuthFilter;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,19 +42,19 @@ public class ProductControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    @DisplayName("should return all product")
-    public void shouldReturnAllProduct() throws Exception {
-        // Given
-
-        // When & Then
-        when(productService.getAll()).thenReturn(new ArrayList<>());
-
-        mockMvc.perform(get("/api/v1/products").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-
-        verify(productService, times(1)).getAll();
-    }
+    //    @Test
+    //    @DisplayName("should return all product")
+    //    public void shouldReturnAllProduct() throws Exception {
+    //        // Given
+    //
+    //        // When & Then
+    //        when(productService.getAll()).thenReturn(new ArrayList<>());
+    //
+    //        mockMvc.perform(get("/api/v1/products").contentType(MediaType.APPLICATION_JSON))
+    //                .andExpect(status().isOk());
+    //
+    //        verify(productService, times(1)).getAll();
+    //    }
 
     @Test
     @DisplayName("should return product")

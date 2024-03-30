@@ -35,13 +35,13 @@ public class ProductController {
         return productService.getProductByPageAndLimit(page, limit);
     }
 
-    @ApiResponse(
-            responseCode = "500",
-            description = "internal server error",
-            content =
-                    @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = NotFoundException.class)))
+    //    @ApiResponse(
+    //            responseCode = "500",
+    //            description = "internal server error",
+    //            content =
+    //                    @Content(
+    //                            mediaType = "application/json",
+    //                            schema = @Schema(implementation = NotFoundException.class)))
     //        @GetMapping("/products")
     //        public List<ProductResponse> getProducts() {
     //            //        add TODO:
