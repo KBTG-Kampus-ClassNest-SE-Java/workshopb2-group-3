@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.kampus.kbazaar.security.JwtAuthFilter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -61,9 +62,16 @@ public class ProductControllerTest {
     public void shouldReturnProduct() throws Exception {
         // Given
         String sku = "PROMO-1";
+        Product product1 =
+                new Product(
+                        1L,
+                        "Google Pixel 5",
+                        "MOBILE-GOOGLE-PIXEL-5",
+                        new BigDecimal(12990.75),
+                        100);
 
         // When & Then
-        when(productService.getBySku(sku)).thenReturn(null);
+        when(productService.getBySku(sku)).thenReturn(product1.toResponse());
 
         mockMvc.perform(get("/api/v1/products/" + sku).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
