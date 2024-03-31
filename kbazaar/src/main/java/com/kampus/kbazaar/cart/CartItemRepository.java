@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
     Optional<List<CartItem>> findByUsername(String username);
+
+    Optional<Cart> findByUsernameAndSku(String username, String sku);
 }

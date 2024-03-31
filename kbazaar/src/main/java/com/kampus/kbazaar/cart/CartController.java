@@ -25,4 +25,10 @@ public class CartController {
         return cartService.addProduct(cartRequest, username);
     }
 
+    @PostMapping("/cart/{username}/promotions")
+    public ResponseEntity addPromotionToProduct(
+            @PathVariable() String username, CartRequest cartRequest) {
+        cartService.addProduct(cartRequest);
+        return new ResponseEntity<>("System.", HttpStatus.OK);
+    }
 }
