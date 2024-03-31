@@ -1,5 +1,6 @@
 package com.kampus.kbazaar.cart;
 
+import com.kampus.kbazaar.promotion.PromotionRequest;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,9 @@ public class CartController {
 
     @PostMapping("/cart/{username}/promotions")
     public ResponseEntity addPromotionToProduct(
-            @PathVariable() String username, CartRequest cartRequest) {
-        cartService.addProduct(cartRequest);
+            @PathVariable("username") String username,
+            @RequestBody() PromotionRequest promotionRequest) {
+        cartService.addProductPromotion(username, promotionRequest);
         return new ResponseEntity<>("System.", HttpStatus.OK);
     }
 }
