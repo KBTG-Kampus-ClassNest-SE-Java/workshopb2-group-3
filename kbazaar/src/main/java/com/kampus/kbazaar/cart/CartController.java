@@ -22,9 +22,10 @@ public class CartController {
     }
 
     @PostMapping("/carts/{username}/items")
-    public CartResponse addProduct(
+    public ResponseEntity<CartResponse> addProduct(
             @RequestBody CartRequest cartRequest, @PathVariable("username") String username) {
-        return cartService.addProduct(cartRequest, username);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(cartService.addProduct(cartRequest, username));
     }
 
     @PostMapping("/cart/{username}/promotions")
