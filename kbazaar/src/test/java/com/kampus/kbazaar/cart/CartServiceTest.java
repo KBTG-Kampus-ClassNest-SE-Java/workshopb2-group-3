@@ -1,7 +1,14 @@
 package com.kampus.kbazaar.cart;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+
 import com.kampus.kbazaar.product.Product;
 import com.kampus.kbazaar.product.ProductRepository;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,27 +16,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
 class CartServiceTest {
 
-    @Mock
-    private CartRepository cartRepository;
+    @Mock private CartRepository cartRepository;
 
-    @Mock
-    private CartItemRepository cartItemRepository;
+    @Mock private CartItemRepository cartItemRepository;
 
-    @Mock
-    private ProductRepository productRepository;
+    @Mock private ProductRepository productRepository;
 
-    @InjectMocks
-    private CartService cartService;
+    @InjectMocks private CartService cartService;
 
     @BeforeEach
     void setUp() {
@@ -86,7 +81,7 @@ class CartServiceTest {
         cartItem1.setSku("MOBILE-GOOGLE-PIXEL-12313");
         cartItem1.setName("Google Pixel");
         cartItem1.setPrice(new BigDecimal("1000"));
-//        cartItem1.setDiscount(new BigDecimal("10"));
+        //        cartItem1.setDiscount(new BigDecimal("10"));
         cartItem1.setQuantity(1);
 
         CartItem cartItem2 = new CartItem();

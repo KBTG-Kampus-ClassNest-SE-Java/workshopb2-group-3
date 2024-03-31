@@ -2,11 +2,10 @@ package com.kampus.kbazaar.cart;
 
 import com.kampus.kbazaar.product.Product;
 import com.kampus.kbazaar.product.ProductRepository;
-
-import java.math.BigDecimal;
 import com.kampus.kbazaar.promotion.Promotion;
 import com.kampus.kbazaar.promotion.PromotionRepository;
 import com.kampus.kbazaar.promotion.PromotionRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -83,12 +82,20 @@ public class CartService {
         cartItemRepository.save(cartItemRequest);
 
         Optional<List<CartItem>> cartItems = cartItemRepository.findByUsername(username);
-        List<CartItemResponse> cartItemResponse = cartItems.get().stream().map(CartItem::toResponse).toList();
+        List<CartItemResponse> cartItemResponse =
+                cartItems.get().stream().map(CartItem::toResponse).toList();
 
         cart = updateCart(cart, cartItems.get());
         cartRepository.save(cart);
 
-        CartResponse cartResponse = new CartResponse(cart.getUsername(), cartItemResponse, cart.getDiscount(), cart.getTotalDiscount(), cart.getSubtotal(), cart.getGrandTotal());
+        CartResponse cartResponse =
+                new CartResponse(
+                        cart.getUsername(),
+                        cartItemResponse,
+                        cart.getDiscount(),
+                        cart.getTotalDiscount(),
+                        cart.getSubtotal(),
+                        cart.getGrandTotal());
         return cartResponse;
     }
 
@@ -98,9 +105,11 @@ public class CartService {
                         .map(CartItem::getPrice)
                         .reduce(BigDecimal.ZERO, BigDecimal::add));
 
-        cart.setTotalDiscount(cartItems.stream()
-                .map(CartItem::getDiscount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add).add(cart.getDiscount()));
+        cart.setTotalDiscount(
+                cartItems.stream()
+                        .map(CartItem::getDiscount)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+                        .add(cart.getDiscount()));
 
         cart.setGrandTotal(cart.getSubtotal().subtract(cart.getTotalDiscount()));
 

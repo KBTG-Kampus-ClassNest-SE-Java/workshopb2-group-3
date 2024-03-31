@@ -22,7 +22,8 @@ public class CartController {
     }
 
     @PostMapping("/carts/{username}/items")
-    public CartResponse addProduct(@RequestBody CartRequest cartRequest, @PathVariable("username") String username) {
+    public CartResponse addProduct(
+            @RequestBody CartRequest cartRequest, @PathVariable("username") String username) {
         return cartService.addProduct(cartRequest, username);
     }
 
