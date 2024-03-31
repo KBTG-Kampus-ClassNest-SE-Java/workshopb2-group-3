@@ -21,19 +21,19 @@ public class Cart {
     private String username;
 
     @Column(name = "discount")
-    private BigDecimal discount;
+    private BigDecimal discount = BigDecimal.ZERO;
 
     @Column(name = "total_discount")
-    private BigDecimal totalDiscount;
+    private BigDecimal totalDiscount = BigDecimal.ZERO;
 
     @Column(name = "promotion_codes")
-    private String promotionCodes;
+    private String promotionCodes = "";
 
     @Description("precisely reflect its pre-discount status")
     @Column(name = "subtotal")
-    private BigDecimal subtotal;
+    private BigDecimal subtotal = BigDecimal.ZERO;
 
     @Description("the final, all-inclusive amount to be paid.")
     @Column(name = "grand_total")
-    private BigDecimal grandTotal;
+    private BigDecimal grandTotal = BigDecimal.ZERO;
 }

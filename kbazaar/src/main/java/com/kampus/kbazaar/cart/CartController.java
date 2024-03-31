@@ -3,10 +3,7 @@ package com.kampus.kbazaar.cart;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -24,7 +21,8 @@ public class CartController {
     }
 
     @PostMapping("/carts/{username}/items")
-    public ResponseEntity addProduct(CartRequest cartRequest) {
-        return new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
+    public CartResponse addProduct(@RequestBody CartRequest cartRequest, @PathVariable("username") String username) {
+        return cartService.addProduct(cartRequest, username);
     }
+
 }

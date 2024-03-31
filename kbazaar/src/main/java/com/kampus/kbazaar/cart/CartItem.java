@@ -26,16 +26,16 @@ public class CartItem {
     private String name;
 
     @Column(name = "price")
-    private BigDecimal price;
+    private BigDecimal price = BigDecimal.ZERO;
 
     @Column(name = "quantity")
-    private int quantity;
+    private int quantity = 0;
 
     @Column(name = "discount")
-    private BigDecimal discount;
+    private BigDecimal discount = BigDecimal.ZERO;
 
     @Column(name = "promotion_codes")
-    private String promotionCodes;
+    private String promotionCodes = "";
 
     public CartItemResponse toResponse() {
         return new CartItemResponse(
