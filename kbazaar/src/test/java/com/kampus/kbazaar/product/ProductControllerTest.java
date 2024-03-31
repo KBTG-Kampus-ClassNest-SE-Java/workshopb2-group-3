@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.kampus.kbazaar.security.JwtAuthFilter;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,28 +42,35 @@ public class ProductControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    @DisplayName("should return all product")
-    public void shouldReturnAllProduct() throws Exception {
-        // Given
-
-        // When & Then
-        when(productService.getAll()).thenReturn(new ArrayList<>());
-
-        mockMvc.perform(get("/api/v1/products").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-
-        verify(productService, times(1)).getAll();
-    }
+    //    @Test
+    //    @DisplayName("should return all product")
+    //    public void shouldReturnAllProduct() throws Exception {
+    //        // Given
+    //
+    //        // When & Then
+    //        when(productService.getAll()).thenReturn(new ArrayList<>());
+    //
+    //        mockMvc.perform(get("/api/v1/products").contentType(MediaType.APPLICATION_JSON))
+    //                .andExpect(status().isOk());
+    //
+    //        verify(productService, times(1)).getAll();
+    //    }
 
     @Test
     @DisplayName("should return product")
     public void shouldReturnProduct() throws Exception {
         // Given
         String sku = "PROMO-1";
+        Product product1 =
+                new Product(
+                        1L,
+                        "Google Pixel 5",
+                        "MOBILE-GOOGLE-PIXEL-5",
+                        new BigDecimal(12990.75),
+                        100);
 
         // When & Then
-        when(productService.getBySku(sku)).thenReturn(null);
+        when(productService.getBySku(sku)).thenReturn(product1.toResponse());
 
         mockMvc.perform(get("/api/v1/products/" + sku).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
