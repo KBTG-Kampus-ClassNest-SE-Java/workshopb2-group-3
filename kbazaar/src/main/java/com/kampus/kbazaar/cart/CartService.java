@@ -154,13 +154,8 @@ public class CartService {
 
         Optional<Cart> cartOptional = cartRepository.findByUsername(userName);
         Cart cart = cartOptional.get();
-        BigDecimal totalDiscount = new BigDecimal("0.00");
 
-        for (CartItem ci : cartItemsListAfterDiscount) {
-            totalDiscount = totalDiscount.add(ci.getDiscount());
-        }
-
-        cart.setTotalDiscount(totalDiscount);
+        cart = updateCart(cart, cartItemsListAfterDiscount, getShippingFee());
         cartRepository.save(cart);
     }
 }

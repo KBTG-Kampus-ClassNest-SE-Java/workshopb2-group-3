@@ -9,5 +9,5 @@ public record CartResponse(
         BigDecimal discount,
         BigDecimal totalDiscount,
         BigDecimal subTotal,
-        BigDecimal ShippingFee,
+        BigDecimal shippingFee,
         BigDecimal grandTotal) {}
