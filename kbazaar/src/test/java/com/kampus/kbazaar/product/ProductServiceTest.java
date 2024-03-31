@@ -15,6 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 class ProductServiceTest {
 
@@ -94,5 +98,25 @@ class ProductServiceTest {
 
         // Assertions
         assertThrows(NotFoundException.class, () -> productService.getBySku("NonExistingSKU"));
+    }
+
+    @Test
+    @DisplayName("should return data equal input")
+    void shouldReturnDataEqualInput() {
+
+        Product product1 = new Product(13L, "Sprite", "BEV-SPRITE", new BigDecimal(20.25), 80);
+        Product product2 = new Product(13L, "Sprite", "BEV-SPRITE", new BigDecimal(20.25), 80);
+        Product product3 = new Product(13L, "Sprite", "BEV-SPRITE", new BigDecimal(20.25), 80);
+        //        System.out.println(product);
+        //        product.getContent().size()
+
+        Page<Product> pagedResponse = new PageImpl<>(List.of(product1, product2, product3));
+
+        Pageable pagination = PageRequest.of(0, 3);
+
+        when(productRepository.findAll(pagination)).thenReturn(pagedResponse);
+        Page<Product> product = productService.getProductByPageAndLimit(0, 3);
+
+        assertEquals(3, product.getContent().size());
     }
 }

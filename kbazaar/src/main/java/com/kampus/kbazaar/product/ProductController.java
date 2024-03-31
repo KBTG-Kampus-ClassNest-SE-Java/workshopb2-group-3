@@ -5,11 +5,8 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -31,18 +28,25 @@ public class ProductController {
                                 @ArraySchema(
                                         schema = @Schema(implementation = ProductResponse.class)))
             })
-    @ApiResponse(
-            responseCode = "500",
-            description = "internal server error",
-            content =
-                    @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = NotFoundException.class)))
     @GetMapping("/products")
-    public List<ProductResponse> getProducts() {
-        //        add TODO:
-        return productService.getAll();
+    public Page<Product> getProductWithPagination(
+            @RequestParam(value = "page", required = true) int page,
+            @RequestParam(value = "limit", required = true) int limit) {
+        return productService.getProductByPageAndLimit(page, limit);
     }
+
+    //    @ApiResponse(
+    //            responseCode = "500",
+    //            description = "internal server error",
+    //            content =
+    //                    @Content(
+    //                            mediaType = "application/json",
+    //                            schema = @Schema(implementation = NotFoundException.class)))
+    //        @GetMapping("/products")
+    //        public List<ProductResponse> getProducts() {
+    //            //        add TODO:
+    //            return productService.getAll();
+    //        }
 
     @ApiResponse(
             responseCode = "200",
