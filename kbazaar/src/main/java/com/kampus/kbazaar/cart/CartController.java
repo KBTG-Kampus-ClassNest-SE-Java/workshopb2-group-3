@@ -32,6 +32,6 @@ public class CartController {
             @PathVariable("username") String username,
             @RequestBody() PromotionRequest promotionRequest) {
         cartService.addProductPromotion(username, promotionRequest);
-        return new ResponseEntity<>("System.", HttpStatus.OK);
+        return new ResponseEntity<>("updated cart success", HttpStatus.OK);
     }
 }

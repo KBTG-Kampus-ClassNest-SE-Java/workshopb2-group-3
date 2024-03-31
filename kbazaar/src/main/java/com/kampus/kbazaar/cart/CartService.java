@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -116,12 +115,37 @@ public class CartService {
         return cart;
     }
 
-    public ResponseEntity addProductPromotion(String userName, PromotionRequest promotionRequest) {
+    public void addProductPromotion(String userName, PromotionRequest promotionRequest) {
+
         Optional<Promotion> promotion =
                 promotionRepository.findByCode(promotionRequest.promotionCode());
         Optional<Product> product = productRepository.findBySku(promotionRequest.productSku());
-        //        System.out.println(product);
 
-        return null;
+        List<CartItem> cartItemsListByUser =
+                cartItemRepository.findByUsername(userName).orElse(new ArrayList<>()).stream()
+                        .toList();
+
+        for (CartItem cartItem : cartItemsListByUser) {
+            if (promotionRequest.productSku().contains(cartItem.getSku())) {
+                cartItem.setDiscount(promotion.get().getDiscountAmount());
+                cartItem.setPromotionCodes(promotion.get().getCode());
+                cartItemRepository.save(cartItem);
+            }
+        }
+
+        List<CartItem> cartItemsListAfterDiscount =
+                cartItemRepository.findByUsername(userName).orElse(new ArrayList<>()).stream()
+                        .toList();
+
+        Optional<Cart> cartOptional = cartRepository.findByUsername(userName);
+        Cart cart = cartOptional.get();
+        BigDecimal totalDiscount = new BigDecimal("0.00");
+
+        for (CartItem ci : cartItemsListAfterDiscount) {
+            totalDiscount = totalDiscount.add(ci.getDiscount());
+        }
+
+        cart.setTotalDiscount(totalDiscount);
+        cartRepository.save(cart);
     }
 }
