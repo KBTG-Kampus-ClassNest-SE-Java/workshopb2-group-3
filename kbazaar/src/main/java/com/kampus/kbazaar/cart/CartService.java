@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ public class CartService {
     private CartItemRepository cartItemRepository;
     private ProductRepository productRepository;
     private PromotionRepository promotionRepository;
+
+    @Value("${enabled.shipping.fee:false}")
+    private boolean enableShippingFee;
 
     public CartService(
             CartRepository cartRepository,
@@ -50,6 +55,7 @@ public class CartService {
                             cart.getDiscount(),
                             cart.getTotalDiscount(),
                             cart.getSubtotal(),
+                            getShippingFee(),
                             cart.getGrandTotal());
             cartResponseList.add(cartResponse);
         }
@@ -85,7 +91,9 @@ public class CartService {
         List<CartItemResponse> cartItemResponse =
                 cartItems.get().stream().map(CartItem::toResponse).toList();
 
-        cart = updateCart(cart, cartItems.get());
+        BigDecimal shippingFee = getShippingFee();
+
+        cart = updateCart(cart, cartItems.get(),shippingFee);
         cartRepository.save(cart);
 
         CartResponse cartResponse =
@@ -95,11 +103,19 @@ public class CartService {
                         cart.getDiscount(),
                         cart.getTotalDiscount(),
                         cart.getSubtotal(),
+                        shippingFee,
                         cart.getGrandTotal());
         return cartResponse;
     }
 
-    public Cart updateCart(Cart cart, List<CartItem> cartItems) {
+    public BigDecimal getShippingFee() {
+        if (enableShippingFee) {
+            return  new BigDecimal(25);
+        }
+        return new BigDecimal(0);
+    }
+
+    public Cart updateCart(Cart cart, List<CartItem> cartItems, BigDecimal shippingFee) {
         cart.setSubtotal(
                 cartItems.stream()
                         .map(CartItem::getPrice)
@@ -111,7 +127,7 @@ public class CartService {
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
                         .add(cart.getDiscount()));
 
-        cart.setGrandTotal(cart.getSubtotal().subtract(cart.getTotalDiscount()));
+        cart.setGrandTotal(cart.getSubtotal().subtract(cart.getTotalDiscount()).add(shippingFee));
 
         return cart;
     }
