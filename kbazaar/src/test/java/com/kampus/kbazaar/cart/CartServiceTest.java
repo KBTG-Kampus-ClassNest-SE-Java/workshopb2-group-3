@@ -69,6 +69,7 @@ class CartServiceTest {
     @Test
     @DisplayName("should be update cart")
     void updateCart_ShouldBeReturnCartResponse() {
+        BigDecimal shippingFee = new BigDecimal(25);
         Cart cart = new Cart();
         cart.setUsername("username");
         cart.setDiscount(new BigDecimal("5"));
@@ -94,9 +95,9 @@ class CartServiceTest {
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
 
-        Cart result = cartService.updateCart(cart, cartItems);
+        Cart result = cartService.updateCart(cart, cartItems, shippingFee);
         assertEquals(new BigDecimal("29000.25"), result.getSubtotal());
         assertEquals(new BigDecimal("15"), result.getTotalDiscount());
-        assertEquals(new BigDecimal("28985.25"), result.getGrandTotal());
+        assertEquals(new BigDecimal("29010.25"), result.getGrandTotal());
     }
 }
