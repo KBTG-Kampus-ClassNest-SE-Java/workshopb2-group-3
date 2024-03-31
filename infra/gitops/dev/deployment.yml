@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: kbazaar-api
-          image: ghcr.io/kbtg-kampus-classnest-se-java/workshopb2-group-3:75ac325e7fd687e6d6064b1c66c01db6c421014f
+          image: ghcr.io/kbtg-kampus-classnest-se-java/workshopb2-group-3:27b716ee99d5339dc376a92c84bcfc3a9a1ca336
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
