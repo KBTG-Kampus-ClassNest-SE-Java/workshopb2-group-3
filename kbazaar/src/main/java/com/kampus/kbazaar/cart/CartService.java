@@ -25,7 +25,8 @@ public class CartService {
     public CartService(
             CartRepository cartRepository,
             CartItemRepository cartItemRepository,
-            ProductRepository productRepository) {
+            ProductRepository productRepository,
+            PromotionRepository promotionRepository) {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
@@ -110,6 +111,7 @@ public class CartService {
         Optional<Promotion> promotion =
                 promotionRepository.findByCode(promotionRequest.promotionCode());
         Optional<Product> product = productRepository.findBySku(promotionRequest.productSku());
+        //        System.out.println(product);
 
         return null;
     }
