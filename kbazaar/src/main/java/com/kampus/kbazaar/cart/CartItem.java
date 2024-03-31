@@ -2,20 +2,18 @@ package com.kampus.kbazaar.cart;
 
 import com.kampus.kbazaar.product.ProductResponse;
 import jakarta.persistence.*;
-
-import java.math.BigDecimal;
-import java.util.List;
-
 import jdk.jfr.Description;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "cart")
-public class Cart {
+@Entity(name = "cart_item")
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,20 +22,25 @@ public class Cart {
     @Column(name = "username", unique = true)
     private String username;
 
+    @Column(name = "sku", unique = true)
+    private String sku;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "price")
+    private BigDecimal price;
+
+    @Column(name = "quantity")
+    private int quantity;
+
     @Column(name = "discount")
     private BigDecimal discount;
-
-    @Column(name = "total_discount")
-    private BigDecimal totalDiscount;
 
     @Column(name = "promotion_codes")
     private String promotionCodes;
 
-    @Description("precisely reflect its pre-discount status")
-    @Column(name = "subtotal")
-    private BigDecimal subtotal;
-
-    @Description("the final, all-inclusive amount to be paid.")
-    @Column(name = "grand_total")
-    private BigDecimal grandTotal;
+    public CartItemResponse toResponse() {
+        return new CartItemResponse(this.id,this.username,this.sku,this.name,this.price,this.quantity,this.discount,this.promotionCodes);
+    }
 }
