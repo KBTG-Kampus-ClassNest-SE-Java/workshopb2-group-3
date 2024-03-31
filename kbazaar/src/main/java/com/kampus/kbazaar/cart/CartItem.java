@@ -19,10 +19,10 @@ public class CartItem {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "sku")
+    @Column(name = "sku", unique = true)
     private String sku;
 
     @Column(name = "name")
@@ -31,8 +31,8 @@ public class CartItem {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "quanttity")
-    private int quanttity;
+    @Column(name = "quantity")
+    private int quantity;
 
     @Column(name = "discount")
     private BigDecimal discount;
@@ -41,6 +41,6 @@ public class CartItem {
     private String promotionCodes;
 
     public CartItemResponse toResponse() {
-        return new CartItemResponse(this.id,this.username,this.sku,this.name,this.price,this.quanttity,this.discount,this.promotionCodes);
+        return new CartItemResponse(this.id,this.username,this.sku,this.name,this.price,this.quantity,this.discount,this.promotionCodes);
     }
 }
