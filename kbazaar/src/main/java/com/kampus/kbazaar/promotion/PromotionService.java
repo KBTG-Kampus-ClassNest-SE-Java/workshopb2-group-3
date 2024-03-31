@@ -2,7 +2,6 @@ package com.kampus.kbazaar.promotion;
 
 import com.kampus.kbazaar.exceptions.NotFoundException;
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +24,8 @@ public class PromotionService {
                 .orElseThrow(() -> new NotFoundException("Promotion not found"));
     }
 
-    public ResponseEntity addProductPromotion(PromotionRequest promotionRequest){
+    public ResponseEntity addProductPromotion(PromotionRequest promotionRequest) {
 
         return null;
     }
-
 }
