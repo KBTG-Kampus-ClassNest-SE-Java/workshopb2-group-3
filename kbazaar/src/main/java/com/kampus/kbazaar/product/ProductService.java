@@ -31,6 +31,7 @@ public class ProductService {
     }
 
     public Page<Product> getProductByPageAndLimit(int page, int limit) {
+
         Pageable pagination = PageRequest.of(page, limit);
         return productRepository.findAll(pagination);
     }

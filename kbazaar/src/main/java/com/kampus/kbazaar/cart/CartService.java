@@ -2,10 +2,14 @@ package com.kampus.kbazaar.cart;
 
 import com.kampus.kbazaar.product.Product;
 import com.kampus.kbazaar.product.ProductRepository;
+import com.kampus.kbazaar.promotion.Promotion;
+import com.kampus.kbazaar.promotion.PromotionRepository;
+import com.kampus.kbazaar.promotion.PromotionRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +18,7 @@ public class CartService {
     private CartRepository cartRepository;
     private CartItemRepository cartItemRepository;
     private ProductRepository productRepository;
+    private PromotionRepository promotionRepository;
 
     public CartService(
             CartRepository cartRepository,
@@ -22,6 +27,7 @@ public class CartService {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
+        this.promotionRepository = promotionRepository;
     }
 
     public List<CartResponse> getAll() {
@@ -50,6 +56,14 @@ public class CartService {
 
     public CartResponse addProduct(CartRequest request) {
         Optional<Product> productResponse = productRepository.findBySku(request.productSku());
+        return null;
+    }
+
+    public ResponseEntity addProductPromotion(String userName, PromotionRequest promotionRequest) {
+        Optional<Promotion> promotion =
+                promotionRepository.findByCode(promotionRequest.promotionCode());
+        Optional<Product> product = productRepository.findBySku(promotionRequest.productSku());
+
         return null;
     }
 }
