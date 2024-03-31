@@ -36,6 +36,4 @@ public class Cart {
     @Description("the final, all-inclusive amount to be paid.")
     @Column(name = "grand_total")
     private BigDecimal grandTotal = BigDecimal.ZERO;
-
-
 }

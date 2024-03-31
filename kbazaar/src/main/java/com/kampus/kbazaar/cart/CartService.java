@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -93,7 +92,7 @@ public class CartService {
 
         BigDecimal shippingFee = getShippingFee();
 
-        cart = updateCart(cart, cartItems.get(),shippingFee);
+        cart = updateCart(cart, cartItems.get(), shippingFee);
         cartRepository.save(cart);
 
         CartResponse cartResponse =
@@ -110,7 +109,7 @@ public class CartService {
 
     public BigDecimal getShippingFee() {
         if (enableShippingFee) {
-            return  new BigDecimal(25);
+            return new BigDecimal(25);
         }
         return new BigDecimal(0);
     }
