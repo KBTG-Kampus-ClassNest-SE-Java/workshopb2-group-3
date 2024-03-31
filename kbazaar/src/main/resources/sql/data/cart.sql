@@ -1,0 +1,1 @@
+INSERT INTO public.cart(id, username, discount, total_discount, promotion_codes, subtotal, grand_total)VALUES(1, 'CodeMaster', 0.00, 0.00, '', 0.00, 10.25);

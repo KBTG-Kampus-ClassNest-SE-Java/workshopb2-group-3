@@ -2,13 +2,18 @@ package com.kampus.kbazaar.cart;
 
 import com.kampus.kbazaar.product.Product;
 import com.kampus.kbazaar.product.ProductRepository;
+import com.kampus.kbazaar.promotion.CartPromotionRequest;
 import com.kampus.kbazaar.promotion.Promotion;
 import com.kampus.kbazaar.promotion.PromotionRepository;
 import com.kampus.kbazaar.promotion.PromotionRequest;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -60,10 +65,33 @@ public class CartService {
     }
 
     public ResponseEntity addProductPromotion(String userName, PromotionRequest promotionRequest) {
-        Optional<Promotion> promotion =
-                promotionRepository.findByCode(promotionRequest.promotionCode());
-        Optional<Product> product = productRepository.findBySku(promotionRequest.productSku());
+//        Optional<Promotion> promotion =
+//                promotionRepository.findByCode(promotionRequest.promotionCode());
+//        Optional<Product> product = productRepository.findBySku(promotionRequest.productSku());
 
         return null;
     }
+
+    public ResponseEntity addCartPromotion(String username, CartPromotionRequest cartPromotionRequest) throws BadRequestException {
+
+       Optional<Cart> cartOptional  = cartRepository.findByUsername(username);
+       Optional<Promotion> promotionOptional = promotionRepository.findByCode(cartPromotionRequest.promotionCode());
+
+       if (cartOptional.isEmpty() || promotionOptional.isEmpty()){
+           throw new BadRequestException("username or code promotion does not exist");
+       }
+
+       Cart cart = cartOptional.get();
+       Promotion promotion = promotionOptional.get();
+
+       BigDecimal totalDiscount = cart.getTotalDiscount();
+       BigDecimal promotionDiscount = promotion.getDiscountAmount();
+       BigDecimal newTotalDiscount = totalDiscount.subtract(promotionDiscount);
+
+       return null;
+    }
+
 }
+
+
+

@@ -1,0 +1,1 @@
+INSERT INTO public.cart_item(id, username, sku, "name", price, quantity, discount, promotion_codes)VALUES(1, 'CodeMaster', 'STATIONERY-STAPLER-SWINGLINE,STATIONERY-PENCIL-FABER-CASTELL', 'Pencils', 20990.25, 1, 0.00, '');

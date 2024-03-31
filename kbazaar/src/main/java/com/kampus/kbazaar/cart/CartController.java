@@ -26,7 +26,7 @@ public class CartController {
     }
 
     @PostMapping("/cart/{username}/promotions")
-    public ResponseEntity addPromotionToProduct(
+    public ResponseEntity addProductPromotion(
             @PathVariable() String username, CartRequest cartRequest) {
         cartService.addProduct(cartRequest);
         return new ResponseEntity<>("System.", HttpStatus.OK);
