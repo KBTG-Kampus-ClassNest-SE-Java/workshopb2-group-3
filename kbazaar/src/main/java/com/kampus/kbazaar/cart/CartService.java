@@ -1,5 +1,7 @@
 package com.kampus.kbazaar.cart;
 
+import com.kampus.kbazaar.product.Product;
+import com.kampus.kbazaar.product.ProductRepository;
 import com.kampus.kbazaar.product.ProductResponse;
 import com.kampus.kbazaar.product.ProductService;
 
@@ -8,20 +10,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class CartService {
 
-    @Autowired
-    private final ProductService productService;
     private CartRepository cartRepository;
     private CartItemRepository cartItemRepository;
+    private ProductRepository productRepository;
 
-    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository, ProductService productService) {
+    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository, ProductRepository productRepository) {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
-        this.productService = productService;
+        this.productRepository = productRepository;
     }
 
     public List<CartResponse> getAll() {
@@ -36,7 +38,7 @@ public class CartService {
     }
 
     public CartResponse addProduct(CartRequest request){
-        ProductResponse productResponse = productService.getBySku(request.productSku());
+        Optional<Product> productResponse = productRepository.findBySku(request.productSku());
         return null;
     }
 
