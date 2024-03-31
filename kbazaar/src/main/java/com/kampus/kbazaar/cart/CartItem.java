@@ -1,13 +1,10 @@
 package com.kampus.kbazaar.cart;
 
-import com.kampus.kbazaar.product.ProductResponse;
 import jakarta.persistence.*;
-import jdk.jfr.Description;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -41,6 +38,14 @@ public class CartItem {
     private String promotionCodes;
 
     public CartItemResponse toResponse() {
-        return new CartItemResponse(this.id,this.username,this.sku,this.name,this.price,this.quantity,this.discount,this.promotionCodes);
+        return new CartItemResponse(
+                this.id,
+                this.username,
+                this.sku,
+                this.name,
+                this.price,
+                this.quantity,
+                this.discount,
+                this.promotionCodes);
     }
 }

@@ -4,8 +4,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.kampus.kbazaar.product.ProductService;
 import com.kampus.kbazaar.security.JwtAuthFilter;
+import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
-
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(
         controllers = CartController.class,
@@ -37,8 +35,7 @@ public class CartControllerTest {
 
     @InjectMocks private CartController cartController;
 
-    @MockBean
-    private CartService cartService;
+    @MockBean private CartService cartService;
 
     @BeforeEach
     public void setup() {
