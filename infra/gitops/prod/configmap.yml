@@ -8,4 +8,4 @@ data:
   db.username: "postgres"
   db.password: "YGSQOnBlYd+6"
   enabled.feature.promotion.list.api: "true"
-  enabled.shipping.fee: "true"
+  enabled.shipping.fee: "false"
