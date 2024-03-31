@@ -1,33 +1,33 @@
 build: clean
-	gradlew build
+	./gradlew build
 
 setup:
 	pre-commit install --hook-type pre-commit --config ../.pre-commit-config.yaml
 	pre-commit install --hook-type pre-push --config ../.pre-push-config.yaml
 
 clean:
-	gradlew clean
+	./gradlew clean
 
 run:
-	gradlew bootRun
+	./gradlew bootRun
 
 test:
-	gradlew clean && gradlew test
+	./gradlew clean && ./gradlew test
 
 test-it:
-	gradlew clean && gradlew test-it
+	./gradlew clean && ./gradlew test-it
 
 test-cover:
-	gradlew clean && gradlew test jacocoTestReport
+	./gradlew clean && ./gradlew test jacocoTestReport
 
 format:
-	gradlew spotlessApply
+	./gradlew spotlessApply
 
 format-check:
-	gradlew spotlessCheck
+	./gradlew spotlessCheck
 
 sonar:
-	gradlew build sonar --info
+	./gradlew build sonar --info
 
 health:
 	curl -X GET http://localhost:8080/api/v1/health
