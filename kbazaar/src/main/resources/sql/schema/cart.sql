@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS cart (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL UNIQUE,
     discount DECIMAL(10, 2) default 0.00,
     total_discount DECIMAL(10, 2) default 0.00,
     promotion_codes VARCHAR(255) default '', -- comma-separated list of promotion codes
